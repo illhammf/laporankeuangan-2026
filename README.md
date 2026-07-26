@@ -189,3 +189,24 @@ Ilham Boilerplate 2026
 > "Konsistensi Mengalahkan Bakat Saat Bakat Tidak Muncul."
 
 🔥 Happy Coding!!!
+
+## Tentang Proyek
+
+Laporan Keuangan 2026 merupakan aplikasi berbasis Laravel yang digunakan
+untuk membantu pencatatan dan pengelolaan data laporan keuangan.
+
+## Teknologi
+
+- Laravel
+- PHP
+- MariaDB
+- Nginx
+- Docker Compose
+
+## Menjalankan Proyek
+
+Pastikan Docker dan Docker Compose telah tersedia, kemudian jalankan:
+
+```bash
+docker compose up -d
+```
