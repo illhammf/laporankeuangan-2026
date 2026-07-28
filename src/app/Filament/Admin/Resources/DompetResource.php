@@ -23,7 +23,39 @@ class DompetResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('pengguna_id')
+                    ->relationship('pengguna', 'name')
+                    ->required(),
+                Forms\Components\TextInput::make('nama_dompet')
+                    ->required()
+                    ->maxLength(100),
+                Forms\Components\TextInput::make('jenis_dompet')
+                    ->required(),
+                Forms\Components\TextInput::make('nomor_akun')
+                    ->maxLength(100)
+                    ->default(null),
+                Forms\Components\TextInput::make('saldo_awal')
+                    ->required()
+                    ->numeric()
+                    ->default(0.00),
+                Forms\Components\TextInput::make('mata_uang')
+                    ->required()
+                    ->maxLength(3)
+                    ->default('IDR'),
+                Forms\Components\TextInput::make('ikon')
+                    ->maxLength(100)
+                    ->default(null),
+                Forms\Components\TextInput::make('warna')
+                    ->maxLength(20)
+                    ->default(null),
+                Forms\Components\TextInput::make('urutan')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\Toggle::make('aktif')
+                    ->required(),
+                Forms\Components\Textarea::make('catatan')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +63,40 @@ class DompetResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('pengguna.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nama_dompet')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('jenis_dompet'),
+                Tables\Columns\TextColumn::make('nomor_akun')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('saldo_awal')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('mata_uang')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ikon')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('warna')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('urutan')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('aktif')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

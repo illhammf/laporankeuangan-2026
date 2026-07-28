@@ -23,7 +23,37 @@ class TransferDompetResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('pengguna_id')
+                    ->relationship('pengguna', 'name')
+                    ->required(),
+                Forms\Components\Select::make('dompet_asal_id')
+                    ->relationship('dompetAsal', 'id')
+                    ->required(),
+                Forms\Components\Select::make('dompet_tujuan_id')
+                    ->relationship('dompetTujuan', 'id')
+                    ->required(),
+                Forms\Components\TextInput::make('kode_transfer')
+                    ->required()
+                    ->maxLength(50),
+                Forms\Components\DateTimePicker::make('tanggal_transfer')
+                    ->required(),
+                Forms\Components\TextInput::make('nominal')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('biaya_admin')
+                    ->required()
+                    ->numeric()
+                    ->default(0.00),
+                Forms\Components\Textarea::make('catatan')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('bukti_transfer')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('status')
+                    ->required(),
+                Forms\Components\TextInput::make('sumber_pencatatan')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('diselesaikan_pada'),
             ]);
     }
 
@@ -31,7 +61,45 @@ class TransferDompetResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('pengguna.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('dompetAsal.id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('dompetTujuan.id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('kode_transfer')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tanggal_transfer')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nominal')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('biaya_admin')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('bukti_transfer')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('sumber_pencatatan'),
+                Tables\Columns\TextColumn::make('diselesaikan_pada')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

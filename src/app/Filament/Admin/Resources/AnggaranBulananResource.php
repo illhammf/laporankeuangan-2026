@@ -23,7 +23,31 @@ class AnggaranBulananResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('pengguna_id')
+                    ->relationship('pengguna', 'name')
+                    ->required(),
+                Forms\Components\Select::make('kategori_id')
+                    ->relationship('kategori', 'id')
+                    ->required(),
+                Forms\Components\TextInput::make('bulan')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('tahun')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('nominal_anggaran')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('batas_peringatan')
+                    ->required()
+                    ->numeric()
+                    ->default(80.00),
+                Forms\Components\Toggle::make('ulangi_bulan_berikutnya')
+                    ->required(),
+                Forms\Components\TextInput::make('status')
+                    ->required(),
+                Forms\Components\Textarea::make('catatan')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +55,39 @@ class AnggaranBulananResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('pengguna.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('kategori.id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('bulan')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tahun')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nominal_anggaran')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('batas_peringatan')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('ulangi_bulan_berikutnya')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

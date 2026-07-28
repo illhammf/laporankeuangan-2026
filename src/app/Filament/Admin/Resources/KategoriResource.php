@@ -23,7 +23,36 @@ class KategoriResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('pengguna_id')
+                    ->relationship('pengguna', 'name')
+                    ->required(),
+                Forms\Components\Select::make('kategori_induk_id')
+                    ->relationship('kategoriInduk', 'id')
+                    ->default(null),
+                Forms\Components\TextInput::make('nama_kategori')
+                    ->required()
+                    ->maxLength(100),
+                Forms\Components\TextInput::make('kode_kategori')
+                    ->maxLength(100)
+                    ->default(null),
+                Forms\Components\TextInput::make('jenis_transaksi')
+                    ->required(),
+                Forms\Components\Textarea::make('deskripsi')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('ikon')
+                    ->maxLength(100)
+                    ->default(null),
+                Forms\Components\TextInput::make('warna')
+                    ->maxLength(20)
+                    ->default(null),
+                Forms\Components\TextInput::make('urutan')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\Toggle::make('kategori_bawaan')
+                    ->required(),
+                Forms\Components\Toggle::make('aktif')
+                    ->required(),
             ]);
     }
 
@@ -31,7 +60,40 @@ class KategoriResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('pengguna.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('kategoriInduk.id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nama_kategori')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('kode_kategori')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('jenis_transaksi'),
+                Tables\Columns\TextColumn::make('ikon')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('warna')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('urutan')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('kategori_bawaan')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('aktif')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
