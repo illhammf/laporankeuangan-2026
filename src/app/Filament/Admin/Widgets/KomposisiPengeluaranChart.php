@@ -112,6 +112,14 @@ class KomposisiPengeluaranChart extends ChartWidget
             ->selectRaw(
                 '
                 COALESCE(
+                    kategori_induk.id,
+                    kategori.id
+                ) AS kategori_grup_id
+                '
+            )
+            ->selectRaw(
+                '
+                COALESCE(
                     kategori_induk.nama_kategori,
                     kategori.nama_kategori
                 ) AS nama_kategori
@@ -119,10 +127,12 @@ class KomposisiPengeluaranChart extends ChartWidget
             )
             ->selectRaw(
                 "
-                COALESCE(
-                    kategori_induk.warna,
-                    kategori.warna,
-                    '#6B7280'
+                MAX(
+                    COALESCE(
+                        kategori_induk.warna,
+                        kategori.warna,
+                        '#6B7280'
+                    )
                 ) AS warna_kategori
                 "
             )
@@ -153,18 +163,14 @@ class KomposisiPengeluaranChart extends ChartWidget
             ->groupByRaw(
                 '
                 COALESCE(
-                    kategori_induk.nama_kategori,
-                    kategori.nama_kategori
+                    kategori_induk.id,
+                    kategori.id
                 ),
                 COALESCE(
-                    kategori_induk.warna,
-                    kategori.warna,
-                    ?
+                    kategori_induk.nama_kategori,
+                    kategori.nama_kategori
                 )
-                ',
-                [
-                    '#6B7280',
-                ]
+                '
             )
             ->orderByDesc('total_pengeluaran')
             ->get();
