@@ -2,6 +2,9 @@
 Readme ini dibuat secara otomatis menggunakan skrip start.sh dengan template yang sudah disiapkan. 
 Anda bisa mengeditnya sesuai kebutuhan setelah proyek dibuat
 
+---
+
+
 <div align="center">
 
 # 🚀 laporankeuangan
